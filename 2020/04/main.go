@@ -97,10 +97,6 @@ func main() {
 
 		onePassport.valid = onePassport.passport.validatePassport()
 
-		if onePassport.valid {
-			fmt.Printf("Passport VALID!\n")
-		}
-
 		allPassports.Passport = append(allPassports.Passport, *onePassport)
 		// d.text = append(d.text, onePassport)
 
@@ -137,7 +133,9 @@ func (p *AllPassports) countValid() int {
 }
 
 func (passport *Passport) validatePassport() bool {
-	fmt.Printf("Validate passport: %+v\n", passport)
+	if debug {
+		fmt.Printf("Validate passport: %+v\n", passport)
+	}
 
 	err := validate.Struct(passport)
 	if err != nil {
@@ -170,6 +168,9 @@ func (passport *Passport) validatePassport() bool {
 		return false
 	}
 
+	if debug {
+		fmt.Printf("Passport VALID!\n")
+	}
 	return true
 }
 
