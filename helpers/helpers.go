@@ -38,7 +38,7 @@ func ReadFileToString(fname string) string {
 // ReadFileAsArray reads a file from given path, and returns a string array by splitting each line
 // fname:string Name of the file
 // Return: []string
-func readFileAsArray(fname string) []string {
+func ReadFileAsArray(fname string) []string {
 	file, err := os.Open(fname)
 
 	if err != nil {
