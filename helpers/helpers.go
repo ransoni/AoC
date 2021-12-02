@@ -2,10 +2,12 @@ package helpers
 
 import (
 	"bufio"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"regexp"
+	"strconv"
 )
 
 // ReSplit helps to split string with Regex
@@ -60,4 +62,35 @@ func ReadFileAsArray(fname string) []string {
 	file.Close()
 
 	return text
+}
+
+// ReadFileAsIntArray reads a file from given path, and returns a string array by splitting each line
+// fname:string Name of the file
+// Return: []string
+func ReadFileAsIntArray(fname string) []int {
+	file, err := os.Open(fname)
+
+	if err != nil {
+		log.Fatalf("failed to open")
+
+	}
+
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	scanner.Split(bufio.ScanLines)
+	var intArray []int
+
+	for scanner.Scan() {
+		num, err := strconv.Atoi(scanner.Text())
+		if err != nil {
+			fmt.Printf("Converting from string to int went wrong!")
+		}
+		intArray = append(intArray, num)
+	}
+
+	file.Close()
+
+	return intArray
 }
